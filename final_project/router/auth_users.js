@@ -21,7 +21,7 @@ regd_users.post("/login", (req, res) => {
   if (authenticatedUser(username, password)) {
     const accessToken = jwt.sign({ data: password }, 'access', { expiresIn: 3600 });
     req.session.authorization = { accessToken, username };
-    return res.status(200).send("User successfully logged in");
+    return res.status(200).json({ message: "Login successful!" });
   }
   return res.status(208).json({ message: "Invalid Login. Check username and password" });
 });
@@ -35,7 +35,7 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
   }
   books[isbn].reviews[username] = review;
   return res.status(200).json({
-    message: `Review for book ${isbn} added/updated`,
+    message: "Review added/updated successfully",
     reviews: books[isbn].reviews
   });
 });
